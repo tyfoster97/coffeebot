@@ -1,0 +1,25 @@
+{
+  "name": "modbot",
+  "version": "1.0.0",
+  "description": "Moderation bot for personal discord server",
+  "main": "src/bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tyfoster97/modbot.git"
+  },
+  "author": "Ty Foster",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tyfoster97/modbot/issues"
+  },
+  "homepage": "https://github.com/tyfoster97/modbot#readme",
+  "dependencies": {
+    "discord.js": "^12.3.1",
+    "dotenv": "^8.2.0",
+    "js-yaml": "^3.14.0",
+    "nodemon": "^2.0.4"
+  }
+}
