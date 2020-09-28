@@ -1,7 +1,7 @@
 while true
 do
 echo starting bot
-bash nodemon
+bash nodemon src/bot.js
 echo restarting bot
 sleep 5
 done
