@@ -27,6 +27,10 @@ module.exports.run = async (client, message, args, words) => {
             const msg = new MessageEmbed()
                 .setDescription('Added ' + arg + ' to banned words');
             message.channel.send(msg);
+        } else {
+            words = [];
+            words.concat(args);
+            save(client, message, words);
         }
     });
     infoLog(client, message, 'words added to banned list');
