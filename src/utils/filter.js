@@ -16,16 +16,17 @@ const admin = process.env.ADMIN_CAT;
 function filter(client, message, words) {
     words.forEach(async function (word) {
         if (message.channel.parentID != nsfw && message.channel.parentID != admin) {
-            if (message.content.toLowerCase().includes(word)) {
+            if (message.content.toLowerCase().includes(' ' + word + ' ')) {
                 //alert admins
                 infoLog(client, message, 'banned word used');
                 //delete message
                 await message.delete().catch(err => console.log(err));
                 //quit
-                return;
+                return true;
             }
         }
-    })
+    });
+    return false;
 };
 
 module.exports = {
