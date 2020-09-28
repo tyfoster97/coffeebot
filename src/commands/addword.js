@@ -19,7 +19,7 @@ module.exports.run = async (client, message, args, words) => {
     //for each argument
     args.forEach(function (arg) {
         //if word not already banned
-        if (!words.includes(arg)) {
+        if (words && !words.includes(arg)) {
             //add to banned words
             words = words.concat(arg);
             save(client, message, words);

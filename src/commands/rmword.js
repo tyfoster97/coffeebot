@@ -15,13 +15,15 @@ const { infoLog } = require('../utils/log');
  */
 module.exports.run = async (client, message, args, words) => {
     //if moderator
-    if(message.guild.member(message.author).hasPermission('KICK_MEMBERS')) {
+    if (message.guild.member(message.author).hasPermission('KICK_MEMBERS')) {
         //for each arg in args
         args.forEach(function (arg) {
-            words = words.filter(function(ele) {
-                return ele != arg;
-            });
-            save(client, message, words);
+            if (words) {
+                words = words.filter(function (ele) {
+                    return ele != arg;
+                });
+                save(client, message, words);
+            }
             const msg = new MessageEmbed()
                 .setDescription('Removed ' + arg + ' from banned word list');
             message.channel.send(msg);
