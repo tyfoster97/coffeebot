@@ -13,9 +13,11 @@ const { MessageEmbed } = require("discord.js");
  */
 module.exports.run = async (client, message, args, words) => {
     var list = '';
-    words.forEach(function(word) {
-        list = list + word + '\n';
-    });
+    if (words) { 
+        words.forEach(function(word) {
+            list = list + word + '\n';
+        });
+    }
     const msg = new MessageEmbed()
         .setTitle('Banned words')
         .setDescription(list);
