@@ -4,8 +4,11 @@ const discord = require('discord.js');
 const fs = require('fs').promises;
 const path = require('path');
 const yaml = require('js-yaml');
+const { infoLog, errorLog } = require('./utils/log');
+const yml = process.env.WORD_FILE;
+
 /**
- * @summary Main file for running moderator bot
+ * Main file for running moderator bot
  * @author Ty Foster
  * @version 2020.09.27
  */
@@ -31,6 +34,7 @@ client.on('message', function(message) {
         let cmd = cmdArgs.shift();
         if (client.commands.get(cmd)) {
             client.command.get(cmd).run(client, message, cmdArgs, words);
+            registerWords();
         } else {
             //do nothing
         }
@@ -39,26 +43,30 @@ client.on('message', function(message) {
     }
 
     client.on('error', function(error) {
-        //log
-        //inform
+        errorLog(client, message, error);
     });
 
     process.on('uncaughtException', function(error) {
-        //log
-        //inform
+        errorLog(client, message, error);
     });
 
     process.on('unhandledRejection', function(reason, promise) {
-        //log
-        //inform
+        errorLog(client, message, error);
     });
 });
 
+/**
+ * sets up bot stuff
+ */
 (async function load() {
     await registerCommands('commands');
-    await registerWords('./filtered.yml');
+    await registerWords();
 })();
 
+/**
+ * Loads commands for bot
+ * @param {string} dir 
+ */
 async function registerCommands(dir = 'commands') {
     let files = await fs.readdir(path.join(__dirname, dir));
     console.log(files);
@@ -78,18 +86,24 @@ async function registerCommands(dir = 'commands') {
                 let cmdModule = require(path.join(__dirname, dir, file));
                 //map command names to modules
                 client.commands.set(cmdName, cmdModule);
-                //log that command was loaded
             }
         }
     }
 };
 
-async function registerWords(name = './filtered.yml') {
+/**
+ * Loads banned wordlist
+ */
+async function registerWords() {
     try {
-        let contents = await fs.readFile(name, 'utf8');
+        let contents = await fs.readFile(yml, 'utf8');
         words = yaml.safeLoad(contents, yaml.FAILSAFE_SCHEMA);
     } catch(err) {
-        //log
+        if (client) {
+            errorLog(client, null, err);
+        } else {
+            console.log(err);
+        }
     }
 };
 
