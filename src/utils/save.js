@@ -18,7 +18,7 @@ const yml = process.env.WORD_FILE;
 function save(client, message, words) {
     try {
         let yamlStr = yaml.safeDump(words);
-        fs.writeFile(yml, yamlStr, 'utf8');
+        fs.writeFile(yml, yamlStr, 'utf8', (err) => console.log(err));
     } catch (err) {
         errorLog(client, message, err);
     }

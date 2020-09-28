@@ -19,12 +19,12 @@ function infoLog(client, message, info) {
                 { name: 'user', value: `${message.author.tag}` },
                 { name: 'message', value: message.content }
             );
-        client.channles.cache.get(ilog).send(msg);
+        client.channels.cache.get(ilog).send(msg);
     } else {
         const msg = new MessageEmbed()
             .setTitle('INFO')
             .setDescription(info);
-        client.channles.cache.get(ilog).send(msg);
+        client.channels.cache.get(ilog).send(msg);
     }
 };
 

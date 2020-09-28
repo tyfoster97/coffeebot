@@ -21,7 +21,7 @@ module.exports.run = async (client, message, args, words) => {
         //if word not already banned
         if (!words.includes(arg)) {
             //add to banned words
-            words.concat(arg);
+            words = words.concat(arg);
             save(client, message, words);
             //inform user
             const msg = new MessageEmbed()

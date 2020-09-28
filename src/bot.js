@@ -5,6 +5,7 @@ const fs = require('fs').promises;
 const path = require('path');
 const yaml = require('js-yaml');
 const { infoLog, errorLog } = require('./utils/log');
+const { filter } = require('./utils/filter');
 const yml = process.env.WORD_FILE;
 
 /**
@@ -21,37 +22,41 @@ client.commands = new Map();
 var words = []; //array of censored words
 
 client.on('ready', () => {
-    //print to infoLog -> logged on
+    infoLog(client, null, 'logged on');
 })
 
 const isCmd = message => message.content.startsWith(prefix);
 
-client.on('message', function(message) {
+client.on('message', async function(message) {
     if (message.author.bot) return;
 
     if (isCmd(message)) {
         cmdArgs = message.content.toLowerCase().substring(message.content.indexOf(prefix)+1).split(new RegExp(/[\s+,+\-+]/));
         let cmd = cmdArgs.shift();
         if (client.commands.get(cmd)) {
-            client.command.get(cmd).run(client, message, cmdArgs, words);
+            await client.commands.get(cmd).run(client, message, cmdArgs, words);
             registerWords();
         } else {
             //do nothing
         }
     } else {
         //client.commands.get('filter').run(client, message, null);
+        filter(client, message, words);
     }
 
     client.on('error', function(error) {
         errorLog(client, message, error);
+        return;
     });
 
     process.on('uncaughtException', function(error) {
         errorLog(client, message, error);
+        return;
     });
 
     process.on('unhandledRejection', function(reason, promise) {
-        errorLog(client, message, error);
+        errorLog(client, message, reason);
+        return;
     });
 });
 
