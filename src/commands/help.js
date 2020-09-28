@@ -21,6 +21,9 @@ module.exports.run = async (client, message, args, words) => {
         } else if (args[0] == 'rmword') {
             rmword(message);
             return;
+        } else if (args[0] == 'list') {
+            list(message);
+            return;
         }
     }
     help(message);
@@ -36,7 +39,8 @@ function help(message) {
         .setDescription('use !help <command> for more details')
         .addFields(
             { name: 'addword', value: 'adds a word to banned word list (everyone)' },
-            { name: 'rmword', value: 'removes a word form banned word list (mods)' }
+            { name: 'rmword', value: 'removes a word form banned word list (mods)' },
+            { name: 'list', value: 'lists all banned words' }
         );
     message.channel.send(msg);
 };
@@ -69,10 +73,25 @@ function rmword(message) {
             .addFields(
                 { name: 'Users', value: 'mods and admins can use this command' },
                 { name: 'Format', value: '!rmword <word> [<word> ... <word>]' },
-                { name: 'Example', value: '!rmword yellow\n!rmword yellow red us'}
+                { name: 'Example', value: '!rmword yellow\n!rmword yellow red us' }
             );
         message.channel.send(msg);
     } else {
         noPermission(message);
     }
+};
+
+/**
+ * list help command
+ * @param {Message} message message to reply to 
+ */
+function list(message) {
+    const msg = new MessageEmbed()
+        .setTitle('list')
+        .setDescription('Lists all banned words')
+        .addFields(
+            { name: 'Users', value: 'anyone can use this command' },
+            { name: 'Format', value: '!list'} 
+        );
+    message.channel.send(msg);
 };
