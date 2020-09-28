@@ -11,7 +11,7 @@ const elog = process.env.ERR_LOG;
  * @param {string} info 
  */
 function infoLog(client, message, info) {
-    const msg = null;
+    var msg = null;
     if (message) {
         msg = new MessageEmbed()
             .setTitle('INFO')
@@ -35,7 +35,7 @@ function infoLog(client, message, info) {
  * @param {Error} err 
  */
 function errorLog(client, message, err) {
-    const msg = null;
+    var msg = null;
     if (message) {
         msg = new MessageEmbed()
             .setTitle('ERROR')
