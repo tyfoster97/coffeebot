@@ -16,7 +16,7 @@ module.exports.run = async (client, message, args, words) => {
     //if command help
     if (args[0]) {
         if (args[0] == 'addword') {
-            addword(msg);
+            addword(message);
             return;
         } else if (args[0] == 'rmword') {
             rmword(message);
