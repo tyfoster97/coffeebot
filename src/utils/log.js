@@ -11,21 +11,21 @@ const elog = process.env.ERR_LOG;
  * @param {string} info 
  */
 function infoLog(client, message, info) {
+    const msg;
     if (message) {
-        const msg = new MessageEmbed()
+        msg = new MessageEmbed()
             .setTitle('INFO')
             .setDescription(info)
             .addFields(
                 { name: 'user', value: `${message.author.tag}` },
                 { name: 'message', value: message.content }
             );
-        client.channels.cache.get(ilog).send(msg);
     } else {
-        const msg = new MessageEmbed()
+        msg = new MessageEmbed()
             .setTitle('INFO')
             .setDescription(info);
-        client.channels.cache.get(ilog).send(msg);
     }
+    client.channels.cache.get(ilog).send(msg);
 };
 
 /**
@@ -35,8 +35,9 @@ function infoLog(client, message, info) {
  * @param {Error} err 
  */
 function errorLog(client, message, err) {
+    const msg;
     if (message) {
-        const msg = new MessageEmbed()
+        msg = new MessageEmbed()
             .setTitle('ERROR')
             .setDescription(err.message)
             .addFields(
@@ -44,16 +45,15 @@ function errorLog(client, message, err) {
                 { name: 'user', value: `${message.author.tag}` },
                 { name: 'stacktrace', value: err.stack.toString() }
             );
-        client.channels.cache.get(elog).send(msg);
     } else {
-        const msg = new MessageEmbed()
+        msg = new MessageEmbed()
             .setTitle('ERROR')
             .setDescription(err.message)
             .addFields(
                 { name: 'stacktrace', value: err.stack.toString() }
             );
-        client.channels.cache.get(elog).send(msg);
     }
+    client.channels.cache.get(elog).send(msg);
 };
 
 module.exports = {
