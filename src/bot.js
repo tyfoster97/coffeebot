@@ -7,6 +7,7 @@ const yaml = require('js-yaml');
 const { infoLog, errorLog } = require('./utils/log');
 const { filter } = require('./utils/filter');
 const wordfile = process.env.WORD_FILE;
+const emojirolefile = process.env.EMOJI_ROLE;
 
 /**
  * Main file for running moderator bot
