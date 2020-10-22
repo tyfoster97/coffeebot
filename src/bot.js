@@ -6,7 +6,7 @@ const path = require('path');
 const yaml = require('js-yaml');
 const { infoLog, errorLog } = require('./utils/log');
 const { filter } = require('./utils/filter');
-const yml = process.env.WORD_FILE;
+const yml = process.env.WORD_LIST;
 
 /**
  * Main file for running moderator bot
