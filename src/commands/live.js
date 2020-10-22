@@ -18,16 +18,16 @@ module.exports.run = async (client, message, args) => {
         }
     }
 
+    var msg;
     if (llink != 'https://') {
-        const msg = new MessageEmbed()
+        msg = new MessageEmbed()
             .setTitle('Ty is live')
             .setDescription(str)
             .setURL(llink);
-        client.channels.cahce.get(llog).send(msg);
     } else {
-        const msg = new MessageEmbed()
+        msg = new MessageEmbed()
             .setTitle('Ty is live')
             .setDescription(str);
-        client.channels.cache.get(llog).send(msg);
     }
+    client.channels.cache.find(ch => ch.id == llog).send(msg);
 }
