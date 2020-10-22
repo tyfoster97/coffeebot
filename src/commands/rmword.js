@@ -1,6 +1,7 @@
 const { MessageEmbed } = require("discord.js");
 const { save } = require("../utils/save");
 const { infoLog } = require('../utils/log');
+const yml = process.env.WORD_LIST;
 //imports
 /**
  * @author Ty Foster
@@ -22,7 +23,7 @@ module.exports.run = async (client, message, args, words) => {
                 words = words.filter(function (ele) {
                     return ele != arg;
                 });
-                save(client, message, words);
+                save(client, message, yml, words);
             }
             const msg = new MessageEmbed()
                 .setDescription('Removed ' + arg + ' from banned word list');
