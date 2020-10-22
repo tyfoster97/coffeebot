@@ -33,6 +33,9 @@ module.exports.run = async (client, message, args, words) => {
         } else if (args[0] == 'assign') {
             assign(message);
             return;
+        } else if (args[0] == 'live') {
+            live(message);
+            return;
         }
     }
     help(message);
@@ -105,6 +108,7 @@ function list(message) {
     message.channel.send(msg);
 };
 
+
 function addrole(message) {
     //TODO
 }
@@ -115,4 +119,15 @@ function rmrole(message) {
 
 function assign(message) {
     //TODO
+}
+function live(message) {
+    const msg = new MessageEmbed()
+        .setTitle('live')
+        .setDescription('Notify everyone that Ty is live')
+        .addFields(
+            { name: 'Users', value: 'anyone can use this command' },
+            { name: 'Format', value: '!live [place]' },
+            { name: 'Example', value: '!live \n!live twitch \n!live tiktok'}
+        );
+    message.channel.send(msg);
 }
