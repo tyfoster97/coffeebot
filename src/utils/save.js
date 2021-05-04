@@ -2,7 +2,6 @@
 const fs = require('fs');
 const yaml = require('js-yaml');
 const { errorLog } = require('./log');
-const yml = process.env.WORD_FILE;
 
 /**
  * @author Ty Foster
@@ -15,10 +14,10 @@ const yml = process.env.WORD_FILE;
  * @param {Message} message discord message
  * @param {string[]} words words to ban from SFW chats
  */
-function save(client, message, words) {
+function save(client, message, file, stuff) {
     try {
         let yamlStr = yaml.safeDump(words);
-        fs.writeFile(yml, yamlStr, 'utf8', (err) => console.log(err));
+        fs.writeFile(file, yamlStr, 'utf8', (err) => console.log(err));
     } catch (err) {
         errorLog(client, message, err);
     }

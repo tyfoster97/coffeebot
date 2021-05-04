@@ -6,7 +6,8 @@ const path = require('path');
 const yaml = require('js-yaml');
 const { infoLog, errorLog } = require('./utils/log');
 const { filter } = require('./utils/filter');
-const yml = process.env.WORD_LIST;
+const wordfile = process.env.WORD_FILE;
+const emojirolefile = process.env.EMOJI_ROLE;
 
 /**
  * Main file for running moderator bot
@@ -66,6 +67,7 @@ client.on('message', async function(message) {
 (async function load() {
     await registerCommands('commands');
     await registerWords();
+    //await registerRoles();
 })();
 
 /**
@@ -101,7 +103,7 @@ async function registerCommands(dir = 'commands') {
  */
 async function registerWords() {
     try {
-        let contents = await fs.readFile(yml, 'utf8');
+        let contents = await fs.readFile(wordfile, 'utf8');
         words = yaml.safeLoad(contents, yaml.FAILSAFE_SCHEMA);
     } catch(err) {
         if (client) {
@@ -111,6 +113,19 @@ async function registerWords() {
         }
     }
 };
+
+async function registerRoles() {
+    try {
+        let contents = await fs.readFile(emojirolefile, 'utf8');
+        emoji_roles = yaml.safeLoad(contents, yaml.FAILSAFE_SCHEMA);
+    } catch(err) {
+        if (client) {
+            errorLog(client, null, err);
+        } else {
+            console.log(err);
+        }
+    }
+}
 
 
 

@@ -2,7 +2,7 @@ const { MessageEmbed } = require('discord.js');
 //imports
 const { save } = require('../utils/save');
 const { infoLog } = require('../utils/log');
-
+const yml = process.env.WORD_LIST;
 /**
  * @author Ty Foster
  * @version 2020.09.27
@@ -22,7 +22,7 @@ module.exports.run = async (client, message, args, words) => {
         if (words && !words.includes(arg)) {
             //add to banned words
             words = words.concat(arg);
-            save(client, message, words);
+            save(client, message, yml, words);
             //inform user
             const msg = new MessageEmbed()
                 .setDescription('Added ' + arg + ' to banned words');
@@ -30,7 +30,7 @@ module.exports.run = async (client, message, args, words) => {
         } else {
             words = [];
             words.concat(args);
-            save(client, message, words);
+            save(client, message, yml, words);
         }
     });
     infoLog(client, message, 'words added to banned list');

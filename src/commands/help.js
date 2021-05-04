@@ -24,6 +24,15 @@ module.exports.run = async (client, message, args, words) => {
         } else if (args[0] == 'list') {
             list(message);
             return;
+        } else if (args[0] == 'addrole') {
+            addrole(message);
+            return;
+        } else if (args[0] == 'rmrole') {
+            rmrole(message);
+            return;
+        } else if (args[0] == 'assign') {
+            assign(message);
+            return;
         } else if (args[0] == 'live') {
             live(message);
             return;
@@ -99,6 +108,18 @@ function list(message) {
     message.channel.send(msg);
 };
 
+
+function addrole(message) {
+    //TODO
+}
+
+function rmrole(message) {
+    //TODO
+}
+
+function assign(message) {
+    //TODO
+}
 function live(message) {
     const msg = new MessageEmbed()
         .setTitle('live')
